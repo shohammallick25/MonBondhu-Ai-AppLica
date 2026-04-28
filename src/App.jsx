@@ -304,6 +304,8 @@ function HomePage({ setPage, lang, currentMood, setCurrentMood, userName, streak
 // এই ChatPage-এই সম্পূর্ণ Claude API integration আছে।
 // callClaude() function টা হলো মূল API caller।
 // ─────────────────────────────────────────────────────────────────────────────
+
+
 function ChatPage({ lang, setRobotSpeaking, setRobotMood, onEmergency }) {
   const [messages, setMessages] = useState([
     {
@@ -350,70 +352,62 @@ function ChatPage({ lang, setRobotSpeaking, setRobotMood, onEmergency }) {
       // ═══════════════════════════════════════
       // API CALL — এখানেই Claude কথা বলে!
       // ═══════════════════════════════════════
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // API key Claude.ai artifact-এ auto-injected হয়
-          // তোমার নিজের project-এ এখানে রাখবে:
-          // "x-api-key": "sk-ant-YOUR_KEY_HERE",
-          // "anthropic-version": "2023-06-01",
-        },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514", // সবচেয়ে ভালো model
-          max_tokens: 1000,
 
-          // ═══════════════════════════════════════
-          // SYSTEM PROMPT — MonBondhu AI এর পরিচয়
-          // এখানে AI এর behavior define করা হয়
-          // ═══════════════════════════════════════
-          system: `You are MonBondhu AI (মনবন্ধু AI), a compassionate mental health and productivity companion designed for Bangladeshi and South Asian users. 
+      const key = import.meta.env.VITE_OPENROUTER_API_KEY;
 
-Your personality:
-- Warm, empathetic, non-judgmental, like a trusted friend
-- You respond in the SAME language the user writes in (Bangla → Bangla, English → English, mixed → mixed)
-- You validate feelings before giving advice
-- You are NOT a replacement for professional help — always recommend professionals for serious issues
+const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${key}`,
+    "X-Title": "MonBondhu AI",
+  },
+  body: JSON.stringify({
+    model: "meta-llama/llama-3.1-70b-instruct",
 
-Your capabilities:
-- Emotional support for anxiety, depression, stress, loneliness
-- Productivity coaching (tasks, habits, focus)
-- Mindfulness and meditation guidance
-- Sleep hygiene advice
-- Academic/exam stress support for students
+    messages: [
+      {
+        role: "system",
+        content: `You are MonBondhu AI (মনবন্ধু AI), a compassionate mental health assistant.
 
-Current detected emotion from user: "${emotion}"
+Rules:
+- Be empathetic
+- Reply in same language
+- Do not give medical diagnosis
+- Suggest professional help when needed
 
-CRITICAL SAFETY RULES:
-- If user mentions suicide, self-harm, or crisis → ALWAYS provide helpline: কান পেতে রই: 01779-554391 | Emergency: 999
-- Never diagnose medical conditions
-- Always recommend professional help for serious mental health issues
+Current emotion: "${emotion}"`
+      },
 
-Response style:
-- Keep responses concise: 2-4 sentences max (unless user needs more)
-- Be conversational, not clinical
-- Use gentle emojis sparingly (1-2 max)
-- Always end with a follow-up question to keep the conversation going`,
+      ...newHistory
+    ],
 
-          // ═══════════════════════════════════════
-          // CONVERSATION HISTORY — পুরো conversation
-          // context মনে রাখে (multi-turn memory)
-          // ═══════════════════════════════════════
-          messages: newHistory,
-        }),
-      });
+    max_tokens: 1000,
+    temperature: 0.7
+  }),
+});
 
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-      }
+// 👇 এখানে লগ দাও (response আসার পর)
+console.log("STATUS:", response.status);
 
-      const data = await response.json();
+const data = await response.json();
+
+console.log("DATA:", data);
+
+if (!response.ok) {
+  console.error("OpenAI API Error:", data);
+  throw new Error(data?.error?.message || `API Error: ${response.status}`);
+}
 
       // ═══════════════════════════════════════
       // RESPONSE EXTRACT — API থেকে text বের করো
-      // data.content[0].text হলো Claude এর reply
+      // data.content[0].text হলো Ai এর reply
       // ═══════════════════════════════════════
-      const aiReply = data.content[0].text;
+      const aiReply = data?.choices?.[0]?.message?.content;
+
+if (!aiReply) {
+  throw new Error("Invalid API response");
+}
 
       // AI এর reply conversation history-তে যোগ করো (memory)
       setConversationHistory(h => [...h, { role: "assistant", content: aiReply }]);
@@ -529,7 +523,7 @@ Response style:
             <div style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "20px 20px 20px 4px", padding: "12px 18px", display: "flex", gap: 5, alignItems: "center" }}>
               {[0, 1, 2].map(i => <div key={i} style={{ width: 7, height: 7, borderRadius: "50%", background: "#4ECDC4", animation: `bounce 1s ${i * 0.2}s infinite` }} />)}
               <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 11, marginLeft: 6 }}>
-                {lang === "bn" ? "Claude AI ভাবছে..." : "Claude AI is thinking..."}
+                {lang === "bn" ? "MonBondhu AI ভাবছে..." : "MonBondhu AI is thinking..."}
               </span>
             </div>
           </div>
