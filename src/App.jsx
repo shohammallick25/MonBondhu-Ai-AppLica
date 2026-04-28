@@ -1223,7 +1223,7 @@ function LoginPage({ onLogin, lang }) {
 }
 
 // ─────────────────────────────────────────────
-// EMERGENCY MODAL
+// EMERGENCY MODEL
 // ─────────────────────────────────────────────
 function EmergencyModal({ onClose, lang }) {
   return (
@@ -1236,6 +1236,93 @@ function EmergencyModal({ onClose, lang }) {
         <button onClick={onClose} className="btn" style={{ marginTop: 10, background: "none", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.45)", padding: "10px 26px", borderRadius: 12, fontSize: 13 }}>{lang === "bn" ? "আমি এখন নিরাপদ" : "I'm safe for now"}</button>
       </div>
     </div>
+  );
+}
+
+
+// ─────────────────────────────────────────────
+// FOOTER
+// ─────────────────────────────────────────────
+function Footer({ lang }) {
+  return (
+    <footer style={{
+      width: "100%",
+      marginTop: 40,
+      padding: "20px 16px",
+      borderTop: "1px solid rgba(255,255,255,0.08)",
+      background: "rgba(255,255,255,0.02)",
+      backdropFilter: "blur(10px)",
+      textAlign: "center"
+    }}>
+      
+      {/* Logo / Name */}
+      <div style={{
+        fontSize: 16,
+        fontWeight: 800,
+        color: "#4ECDC4",
+        marginBottom: 6
+      }}>
+        🧠 MonBondhu AI
+      </div>
+
+      {/* Tagline */}
+      <p style={{
+        color: "rgba(255,255,255,0.5)",
+        fontSize: 12,
+        marginBottom: 12
+      }}>
+        {lang === "bn"
+          ? "তোমার মানসিক স্বাস্থ্যের বিশ্বস্ত সঙ্গী 💙"
+          : "Your trusted mental health companion 💙"}
+      </p>
+
+      {/* Links */}
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: 16,
+        flexWrap: "wrap",
+        marginBottom: 12
+      }}>
+        {[
+          { label: "Home", page: "home" },
+          { label: "Chat", page: "chat" },
+          { label: "Mood", page: "mood" },
+          { label: "Emergency", page: "emergency" },
+        ].map((l, i) => (
+          <span
+            key={i}
+            style={{
+              color: "rgba(255,255,255,0.6)",
+              fontSize: 12,
+              cursor: "pointer"
+            }}
+          >
+            {l.label}
+          </span>
+        ))}
+      </div>
+
+      {/* Disclaimer */}
+      <p style={{
+        fontSize: 10,
+        color: "rgba(255,255,255,0.35)",
+        maxWidth: 400,
+        margin: "0 auto 10px"
+      }}>
+        {lang === "bn"
+          ? "⚠️ এটি কোনো চিকিৎসা সেবা নয়। জরুরি অবস্থায় 999 অথবা মানসিক স্বাস্থ্য হেল্পলাইনে যোগাযোগ করুন।"
+          : "⚠️ This is not a medical service. In emergencies, contact 999 or a professional helpline."}
+      </p>
+
+      {/* Copyright */}
+      <div style={{
+        fontSize: 10,
+        color: "rgba(255,255,255,0.3)"
+      }}>
+        © {new Date().getFullYear()} MonBondhu AI • Built By Shoham Mallick
+      </div>
+    </footer>
   );
 }
 
@@ -1322,6 +1409,7 @@ export default function App() {
         </main>
         <FloatingRobot robotMood={robotMood} robotSpeaking={robotSpeaking} onClick={() => setPage("chat")} />
         {showEmergency && <EmergencyModal onClose={() => setShowEmergency(false)} lang={lang} />}
+          <Footer lang={lang} />
       </div>
     </>
   );
