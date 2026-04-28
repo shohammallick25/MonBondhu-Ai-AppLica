@@ -43,5 +43,5 @@ npm install
 npm run dev
 ---------------------------------------------
 ## 🌐 Live Demo
-([Click Here](https://mon-bondhu-ai.vercel.app/))
+([Click Here](https://mon-bondhu-ai-app-lica-cszdsnntk-shoham-mallick-s-projects.vercel.app/))
 
