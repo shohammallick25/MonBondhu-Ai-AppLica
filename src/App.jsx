@@ -1199,7 +1199,7 @@ function LoginPage({ onLogin, lang }) {
       <div style={{ textAlign: "center", marginBottom: 36 }}>
         <div style={{ fontSize: 64, marginBottom: 12, animation: "float 3s ease-in-out infinite" }}>🧠</div>
         <h1 style={{ color: "#fff", fontSize: 30, fontWeight: 900, letterSpacing: -1, marginBottom: 6, background: "linear-gradient(90deg,#4ECDC4,#9B59B6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>MonBondhu AI</h1>
-        <p style={{ color: "rgba(78,205,196,0.7)", fontSize: 13 }}>{lang === "bn" ? "তোমার মানসিক স্বাস্থ্য সঙ্গী • Powered by Claude AI" : "Your Mental Health Companion • Powered by Claude AI"}</p>
+        <p style={{ color: "rgba(78,205,196,0.7)", fontSize: 13 }}>{lang === "bn" ? "তোমার মানসিক স্বাস্থ্য সঙ্গী • Powered by Shoham AI support" : "Your Mental Health Companion • Powered by Shoham"}</p>
         <div style={{ display: "flex", gap: 8, justifyContent: "center", marginTop: 10, flexWrap: "wrap" }}>
           {["💬 Real AI Chat", "🌈 Mood Track", "📓 Journal", "🔥 Habits", "🌙 Sleep"].map(f => <span key={f} style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.05)", padding: "4px 10px", borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)" }}>{f}</span>)}
         </div>
