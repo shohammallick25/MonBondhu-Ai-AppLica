@@ -309,8 +309,8 @@ function ChatPage({ lang, setRobotSpeaking, setRobotMood, onEmergency }) {
     {
       id: 1, role: "ai",
       text: lang === "bn"
-        ? "আমি মনবন্ধু AI! এখন থেকে তুমি যা লিখবে, আমি Claude AI দিয়ে সরাসরি উত্তর দেবো। মন খুলে কথা বলো। 💙"
-        : "Hi! I'm MonBondhu AI — powered by real Claude AI. Type anything and I'll respond instantly. You're safe here. 💙",
+        ? "আমি মনবন্ধু AI! এখন থেকে তুমি যা লিখবে, আমি Shoham's AI দিয়ে সরাসরি উত্তর দেবো। মন খুলে কথা বলো। 💙"
+        : "Hi! I'm MonBondhu AI — powered by Shoham. Type anything and I'll respond instantly. You're safe here. 💙",
       time: new Date(), emotion: "default",
     }
   ]);
@@ -565,7 +565,7 @@ Response style:
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === "Enter" && !e.shiftKey && send()}
-            placeholder={loading ? (lang === "bn" ? "Claude AI উত্তর দিচ্ছে..." : "Claude AI is responding...") : (lang === "bn" ? "তোমার মনের কথা লিখো..." : "Type your message...")}
+            placeholder={loading ? (lang === "bn" ? "MonBondhu AI উত্তর দিচ্ছে..." : "MonBondhu AI is responding...") : (lang === "bn" ? "তোমার মনের কথা লিখো..." : "Type your message...")}
             disabled={loading}
             style={{ flex: 1, padding: "13px 16px", borderRadius: 16, background: loading ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.07)", border: `1px solid ${loading ? "rgba(255,255,255,0.08)" : "rgba(78,205,196,0.25)"}`, color: "#fff", fontSize: 14, outline: "none", transition: "all 0.2s" }}
           />
@@ -578,7 +578,7 @@ Response style:
           </button>
         </div>
         <p style={{ color: "rgba(255,255,255,0.2)", fontSize: 10, marginTop: 6, textAlign: "center" }}>
-          🔒 {lang === "bn" ? "Powered by Claude AI · সম্পূর্ণ গোপন" : "Powered by Claude AI · Fully private"}
+          🔒 {lang === "bn" ? "Powered by MonBondhu AI · সম্পূর্ণ গোপন" : "Powered by Shoham · Fully private"}
         </p>
       </div>
     </div>
