@@ -432,7 +432,7 @@ Response style:
       setTimeout(() => setRobotSpeaking(false), 2500);
 
     } catch (err) {
-      console.error("Claude API Error:", err);
+      console.error("Shoham's API Error:", err);
       // Error fallback — API fail হলেও UI ভাঙবে না
       setMessages(m => [...m, {
         id: Date.now() + 1,
@@ -490,7 +490,7 @@ Response style:
         <div style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(78,205,196,0.1)", border: "1px solid rgba(78,205,196,0.25)", borderRadius: 20, padding: "5px 14px" }}>
           <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#2ECC71", animation: "glow 2s infinite" }} />
           <span style={{ color: "#4ECDC4", fontSize: 11, fontWeight: 700 }}>
-            {lang === "bn" ? "Claude AI সংযুক্ত — Real-time Response" : "Claude AI Connected — Real-time Response"}
+            {lang === "bn" ? "AI সংযুক্ত — Real-time Response" : "AI Connected — Real-time Response"}
           </span>
         </div>
       </div>
@@ -516,7 +516,7 @@ Response style:
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 3, paddingLeft: msg.role === "ai" ? 2 : 0, justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
                 {msg.emotion && msg.emotion !== "default" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: emotionColors[msg.emotion] || "#4ECDC4" }} />}
                 <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 10 }}>{msg.time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
-                {msg.role === "ai" && !msg.isError && <span style={{ color: "rgba(78,205,196,0.5)", fontSize: 9 }}>• Claude AI</span>}
+                {msg.role === "ai" && !msg.isError && <span style={{ color: "rgba(78,205,196,0.5)", fontSize: 9 }}>• MonBondhu AI</span>}
               </div>
             </div>
           </div>
